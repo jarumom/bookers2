@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+       <%= render 'sidebar', book: @book, user: @user %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <h2>Book detail</h2>
+      <table class='table'>
+        <tr>
+          <td>
+            <% if @user.profile_image.attached? %>
+              <%= image_tag @user.profile_image, size: "80x80" %>
+            <% else %>
+              <%= image_tag 'no-image', size: "80x80" %>
+            <% end %>
+            <br>
+            <%= link_to @book_show.user.name, user_path(@book_show.user), method: :get %>
+          </td>
+          <td><%=link_to @book_show.title, book_path(@book_show), method: :get %></td>
+          <td><%= @book_show.body %></td>
+          <% if @book_show.user == current_user %>
+          <td><%= link_to "Edit", edit_book_path(@book_show), class: "btn btn-sm btn-success" %></td>
+          <td><%= link_to "Destroy",book_path(@book_show),method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-sm btn-danger" %></td>
+          <% end %>
+        </tr>
+
+      </table>
